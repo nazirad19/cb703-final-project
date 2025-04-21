@@ -37,8 +37,8 @@ your_project_name/
 ├── notebooks/
 │   └── downstream_analysis_template.ipynb
 ├── reference/                  
-│   ├── Homo_sapiens.GRCh38.cdna.all.rXXX.fa.gz
-│   ├── transcripts_to_genes_ensemblXXX.txt
+│   ├── Homo_sapiens.GRCh38.cdna.all.r112.fa.gz
+│   ├── transcripts_to_genes_ensembl112.txt
 │   └── 10x_whitelist.txt
 │   └── .gitignore
 ├── results/                     
