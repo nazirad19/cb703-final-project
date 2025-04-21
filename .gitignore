@@ -1,0 +1,37 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Snakemake specific
+.snakemake/
+
+# Data files (if large or sensitive - adjust as needed)
+# data/*.sra # Might be cached elsewhere by sra-tools
+# results/fastq/
+# results/kallisto_bus/
+# results/bustools_sort/
+# results/bustools_correct/
+# results/bustools_counts/
+# results/**/*.h5ad # AnnData files can be large
+# results/scvi_model/model/* # Model files can be large
+
+# Reference files (especially large index)
+# reference/*.idx
+
+# Logs
+logs/
+
+# Environment files (if managed elsewhere)
+# envs/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

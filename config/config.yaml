@@ -1,0 +1,66 @@
+# config/config.yaml
+
+# List of SRR Accession IDs file path
+# User needs to create this file with one SRR ID per line
+sample_file: "data/SRR_Acc_List.txt"
+
+# External metadata file (must contain barcode and annotation columns)
+# User needs to provide this file
+metadata_file: "data/ethnicity.csv"
+# Column names in metadata_file (Key: CSV Column Name, Value: Desired AnnData .obs Column Name)
+metadata_columns:
+  Barcode: 'barcode' # Barcode column in CSV
+  predicted.celltype.12: 'cell_subtype' # Cell type column in CSV
+  Ethnicity: 'ethnicity' # Ethnicity column in CSV
+  Infection: 'infection_status' # Infection status column in CSV
+
+# Base working directory for Snakemake outputs (relative to Snakefile location)
+workdir: "results"
+
+# Reference Transcriptome Settings
+reference:
+  ensembl_release: 112 # Should match downloaded reference
+  # --- USER MUST PROVIDE/GENERATE THESE ---
+  fasta: "reference/Homo_sapiens.GRCh38.cdna.all.r112.fa.gz" # Path to downloaded transcriptome fasta
+  t2g_map: "reference/transcripts_to_genes_ensembl112.txt" # Path to generated transcript-to-gene map (2 columns: transcript_id<TAB>gene_id)
+  # --- DERIVED FILENAME (Index built by Snakemake) ---
+  index: "reference/homo_sapiens_ensembl_r112.idx"
+
+# Kallisto BUS Settings
+kallisto_bus:
+  threads: 8
+  # --- USER MUST PROVIDE THIS ---
+  technology: "10xv3" # CRITICAL: Specify the single-cell technology (e.g., 10xv2, 10xv3). Run `kallisto bus --list` for options.
+
+# Bustools Settings
+bustools:
+  threads: 8
+  # --- USER MUST PROVIDE THIS ---
+  whitelist: "reference/3M-february-2018_TRU.txt" # CRITICAL: Full path to the correct barcode whitelist file (unzipped .txt recommended)
+
+# Fasterq-dump settings
+fasterq_dump:
+  threads: 8
+  split_files: True # Use --split-files
+
+# QC parameters for preprocessing script
+qc:
+  min_genes_per_cell: 200
+  min_cells_per_gene: 3
+  mito_cutoff_percent: 15.0
+  mito_prefix: "MT-" # Use "mt-" for mouse
+
+# scvi-tools Settings (for SCVI model)
+scvi:
+  max_epochs: 400 # Can reduce for faster testing
+  batch_key: "sample" # Column name added during preprocessing
+  n_latent: 30
+  use_gpu: True # Set to False if no GPU available/desired
+
+# Output filenames (can often be derived in rules, but defining here for clarity)
+output:
+  preprocessed_adata: "results/preprocessing/all_samples_preprocessed.h5ad"
+  annotated_adata: "results/preprocessing/all_samples_annotated.h5ad"
+  scvi_adata: "results/scvi_model/adata_scvi_trained.h5ad"
+  scvi_model_dir: "results/scvi_model/model/"
+

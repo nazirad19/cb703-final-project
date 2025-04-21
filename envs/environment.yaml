@@ -1,0 +1,30 @@
+# envs/environment.yaml
+name: snakemake_scvi # Environment name
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.9 # Or a later compatible version
+  - snakemake-minimal >=7.0 # Or specific version
+  - sra-tools >=3.0 # Or specific version
+  - kallisto >=0.48 # Or specific version
+  - bustools >=0.40 # Or specific version
+  - scvi-tools >=1.0 # Or specific version
+  - scanpy >=1.9
+  - anndata >=0.8
+  - pandas >=1.5
+  - matplotlib >=3.6
+  - seaborn >=0.12
+  - scipy >=1.9
+  - python-igraph # Often needed for Leiden clustering in Scanpy
+  - leidenalg # Leiden clustering algorithm
+  - adjusttext # For non-overlapping plot labels
+  # Add pytorch/cuda dependencies if using GPU with scvi-tools
+  # Check scvi-tools documentation for specific PyTorch/CUDA version compatibility
+  # Example (might need adjustment):
+  #- pytorch >=1.12
+  #- torchvision
+  #- torchaudio
+  #- pytorch-cuda=11.6 # Or 11.7, 11.8 etc. depending on your driver and scvi-tools version
+
