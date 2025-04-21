@@ -30,20 +30,20 @@ your_project_name/
 ├── config/
 │   └── config.yaml
 ├── data/
-│   └── SRR_Acc_List.txt         # <-- User provides
-│   └── ethnicity.csv            # <-- User provides
+│   └── SRR_Acc_List.txt        
+│   └── ethnicity.csv            
 ├── envs/
 │   └── environment.yaml
 ├── notebooks/
 │   └── downstream_analysis_template.ipynb
-├── reference/                   # <-- User populates
+├── reference/                  
 │   ├── Homo_sapiens.GRCh38.cdna.all.rXXX.fa.gz
 │   ├── transcripts_to_genes_ensemblXXX.txt
 │   └── 10x_whitelist.txt
 │   └── .gitignore
-├── results/                     # <-- Created by Snakemake/scripts
+├── results/                     
 │   └── .gitignore
-├── logs/                        # <-- Created by Snakemake
+├── logs/                        
 │   └── .gitignore
 └── scripts/
     ├── preprocess_data_from_mtx.py
