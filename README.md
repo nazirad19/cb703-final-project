@@ -77,7 +77,7 @@ Place the following files in the `reference/` directory (or update paths in `con
 **4. Prepare Input Data Files:**
 Place the following files in the `data/` directory:
 * `SRR_Acc_List.txt`: A text file with one SRA Run Accession ID per line for all your samples.
-* `ethnicity.csv` (or rename): Your metadata file. Must contain a column with cell barcodes and columns for annotations (cell type, ethnicity, infection status, etc.). Ensure the column names match those specified in `config/config.yaml` under `metadata_columns`.
+* `ethnicity.csv`: A metadata file. Must contain a column with cell barcodes and columns for annotations (cell type, ethnicity, infection status, etc.). Ensure the column names match those specified in `config/config.yaml` under `metadata_columns`.
 
 **5. Configure Workflow:**
 * **CRITICALLY EDIT `config/config.yaml`**:
