@@ -4,10 +4,9 @@ This repository contains a Snakemake workflow and associated scripts to process 
 
 ## Authors
 
-* Nazira Dunbayeva
 * Muhra Salem Mohamed Salem Almahri
 * Esraa Saeed Abdalazeem Bayomi
-
+* Nazira Dunbayeva
 
 ## Workflow Overview
 
@@ -30,20 +29,20 @@ your_project_name/
 ├── config/
 │   └── config.yaml
 ├── data/
-│   └── SRR_Acc_List.txt        
-│   └── ethnicity.csv            
+│   └── SRR_Acc_List.txt         # <-- User provides
+│   └── ethnicity.csv            # <-- User provides
 ├── envs/
 │   └── environment.yaml
 ├── notebooks/
 │   └── downstream_analysis_template.ipynb
-├── reference/                  
-│   ├── Homo_sapiens.GRCh38.cdna.all.r112.fa.gz
-│   ├── transcripts_to_genes_ensembl112.txt
+├── reference/                   # <-- User populates
+│   ├── Homo_sapiens.GRCh38.cdna.all.rXXX.fa.gz
+│   ├── transcripts_to_genes_ensemblXXX.txt
 │   └── 10x_whitelist.txt
 │   └── .gitignore
-├── results/                     
+├── results/                     # <-- Created by Snakemake/scripts
 │   └── .gitignore
-├── logs/                        
+├── logs/                        # <-- Created by Snakemake
 │   └── .gitignore
 └── scripts/
     ├── preprocess_data_from_mtx.py
@@ -55,9 +54,8 @@ your_project_name/
 
 **1. Clone Repository:**
 ```bash
-# Replace <your-repo-url> with the actual URL
-git clone <your-repo-url>
-cd your_project_name
+git clone https://github.com/nazirad19/cb703-final-project.git
+cd cb703-final-project # Or your chosen directory name
 ```
 
 **2. Create Conda Environment:**
@@ -77,7 +75,7 @@ Place the following files in the `reference/` directory (or update paths in `con
 **4. Prepare Input Data Files:**
 Place the following files in the `data/` directory:
 * `SRR_Acc_List.txt`: A text file with one SRA Run Accession ID per line for all your samples.
-* `ethnicity.csv`: A metadata file. Must contain a column with cell barcodes and columns for annotations (cell type, ethnicity, infection status, etc.). Ensure the column names match those specified in `config/config.yaml` under `metadata_columns`.
+* `ethnicity.csv` (or rename): Your metadata file. Must contain a column with cell barcodes and columns for annotations (cell type, ethnicity, infection status, etc.). Ensure the column names match those specified in `config/config.yaml` under `metadata_columns`.
 
 **5. Configure Workflow:**
 * **CRITICALLY EDIT `config/config.yaml`**:
@@ -101,12 +99,13 @@ conda activate snakemake_scvi
 ```
 
 **2. Dry Run (Optional but Recommended):**
+Check the planned job execution.
 ```bash
 snakemake -n --use-conda
 ```
 
 **3. Execute Workflow:**
-Replace `N` with the number of CPU cores.
+Run the pipeline. Replace `N` with the number of CPU cores.
 ```bash
 snakemake --cores N --use-conda
 ```
@@ -121,18 +120,18 @@ If Snakemake execution is problematic, you can run the core Python steps manuall
     ```
 2.  **Preprocessing (MTX -> QC'd H5AD):**
     ```bash
-    # This assumes bustools counts are in results/bustools_counts/SAMPLE_ID/
+    # Assumes bustools counts are in results/bustools_counts/SAMPLE_ID/
     # Adjust paths in config or script arguments if needed
     python scripts/preprocess_data_from_mtx.py -c config/config.yaml
     ```
 3.  **Annotation (Merge Metadata):**
     ```bash
-    # This takes the output from step 2 and adds metadata from the CSV
+    # Takes the output from step 2 and adds metadata from the CSV
     python scripts/annotate_adata.py -c config/config.yaml
     ```
 4.  **scVI Training:**
     ```bash
-    # This takes the output from step 3 and trains the model
+    # Takes the output from step 3 and trains the model
     python scripts/run_scvi_training.py -c config/config.yaml
     ```
     *(Check script arguments using `-h` if you need to override specific inputs/outputs defined in the config)*
@@ -151,4 +150,3 @@ Intermediate files (FASTQ, BUS, MTX, preprocessed/annotated AnnData) will also b
 Use the output file `results/scvi_model/adata_scvi_trained.h5ad` for subsequent analysis.
 
 Open the `notebooks/downstream_analysis_template.ipynb` notebook. It demonstrates loading the final AnnData object and outlines the steps for clustering, UMAP, DE tests (using Scanpy), and generating the specific plots (proportions, volcano, heatmap, dot plot) based on the interactive session conducted previously. You will need to run the cells in the notebook and potentially adjust parameters or gene lists (especially for the dot plot) as needed.
-
