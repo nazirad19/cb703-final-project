@@ -4,9 +4,10 @@ This repository contains a Snakemake workflow and associated scripts to process 
 
 ## Authors
 
+* Nazira Dunbayeva
 * Muhra Salem Mohamed Salem Almahri
 * Esraa Saeed Abdalazeem Bayomi
-* Nazira Dunbayeva
+
 
 ## Workflow Overview
 
